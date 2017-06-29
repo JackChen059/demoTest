@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <link rel="stylesheet" href="">
+</head>
+<body>
+  Name:<input type="text" name="username" id='name'>
+  age:<input type="text" name="age" id="age">
+  <input type="submit" id="btn">
+  <p>你是猪</p>
+</body>
+</html>
+<script>
+  //
+  window.onload=function(){
+      var obtn = document.getElementById('btn');
+      var Name = document.getElementById('name')
+      var age = document.getElementById('age')
+
+      obtn.onclick=function(){
+        var xml = null;
+        // var xml = new XMLHttpRequest();
+        if(window.XMLHttpRequest){
+          xml = new XMLHttpRequest();
+        }else{
+          xml = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        xml.open('get','http://datainfo.duapp.com/shopdata/getGoods.php?className='+age.value,true);
+
+        xml.send();
+
+        xml.onreadystatechange = function(){
+          // console.log(xml.responseText);
+          if(xml.readyState == 4){
+            if(xml.status == 200){
+              var body = JSON.parse(xml.responseText)
+              alert(xml.responseText)
+              // msg.innerText = xml.responseText
+              // document.write(xml.responseText)
+          // alert(xml.responseText)
+            }
+          }
+        }
+      };
+    }
+</script>

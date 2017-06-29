@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+</head>
+<body>
+  Name:<input type="text" name="username" id='name'>
+  age:<input type="text" name="age" id="age">
+  <input type="submit" id="btn">
+</body>
+</html>
+<script>
+  window.onload=function(){
+      var obtn = document.getElementById('btn');
+      var Name = document.getElementById('name')
+      var age = document.getElementById('age')
+
+      obtn.onclick=function(){
+        var xml = null;
+        // var xml = new XMLHttpRequest();
+        if(window.XMLHttpRequest){
+          xml = new XMLHttpRequest();
+        }else{
+          xml = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        xml.open('post','./post.php?',true);
+        xml.setRequestHeader('content-type','application/x-www-form-urlencoded')
+
+        xml.send('username='+Name.value+'&age='+age.value);
+
+        xml.onreadystatechange = function(){
+          // console.log(xml.responseText);
+          if(xml.readyState == 4){
+            if(xml.status == 200){
+              // msg.innerText = xml.responseText
+              document.write(xml.responseText)
+          // alert(xml.responseText)
+            }else{
+              alert(xml.status)
+            }
+          }
+        }
+      };
+    }
+</script>

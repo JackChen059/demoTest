@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+</head>
+<body>
+  <ul id="ul">
+    <li>
+    <a href="" title="">小偷凌晨撬开彩票店门“顺走”两万多元彩票</a>
+    <span>2017-6-29</span>
+    </li>
+  </ul>
+  <input type="submit" id="ipt" value="提交">
+</body>
+</html>
+<script>
+  window.onload=function(){
+    var obtn = document.getElementById('ipt')
+    obtn.onclick=function(){
+        var xml = null;
+        // var xml = new XMLHttpRequest();
+        if(window.XMLHttpRequest){
+          xml = new XMLHttpRequest();
+        }else{
+          xml = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        xml.open('get','news.php',true);
+
+        xml.send();
+
+        xml.onreadystatechange = function(){
+          // console.log(xml.responseText);
+          if(xml.readyState == 4){
+            if(xml.status == 200){
+              var body = JSON.parse(xml.responseText)
+              news(body)
+              // JSON.parse将字符串转化成对象
+              // document.write(xml.responseText)
+              // msg.innerText = xml.responseText
+              // document.write(xml.responseText)
+          // alert(xml.responseText)
+            }
+          }
+        }
+      }
+  }
+  function news(data){
+    var oul = document.getElementById('ul');
+    for(var i = 0;i<data.length;i++){
+      var ali = document.createElement('li')
+      ali.innerHTML = '<a href="">'+data[i].titile+'</a><span>'+data[i].data+'</span>';
+      oul.appendChild(ali)
+    }
+  }
+</script>
